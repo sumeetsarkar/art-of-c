@@ -8,7 +8,15 @@ int main() {
     int rows = sizeof(numbers) / sizeof(numbers[0]);
     int cols = sizeof(numbers[0]) / sizeof(numbers[0][0]);
 
-    printf("%d, %d\n", rows, cols);
+    printf("rows %d, cols %d\n", rows, cols);
+
+    int num = 1;
+
+    for (int i = 0; i < rows; i ++) {
+        for (int j = 0; j < cols; j ++) {
+            numbers[i][j] = num ++;
+        }
+    }
 
     for (int i = 0; i < rows; i ++) {
         for (int j = 0; j < cols; j ++) {

@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
     printf("p_temp5: %s\n", p_temp5); // rgb
     printf("p_temp5 first char: %c\n", *p_temp5); // r
     printf("p_temp5 second char: %c\n", *(p_temp5 + 1)); // g
-    printf("p_temp5 third char: %c\n", *(p_temp5 + 2)); // g
+    printf("p_temp5 third char: %c\n", *(p_temp5 + 2)); // b
     // *(p_temp5 + 1) not same as *p_temp5 + 1
     // *(p_temp5 + 1) is an increment in pointer address and * to print value at that address
     // *p_temp5 + 1 is increment to the value at *p_temp5

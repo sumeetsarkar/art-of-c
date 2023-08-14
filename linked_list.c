@@ -83,6 +83,10 @@ void ll_insert(node *start, const char *value) {
     }
 
     node *new_node = malloc(sizeof(node));
+    if (new_node == NULL) {
+        printf("\n!!Unable to allocate memory!!");
+        return;
+    }
     strcpy(new_node -> value, value);
     new_node -> next = NULL;
     tmp -> next = new_node;

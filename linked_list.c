@@ -67,8 +67,10 @@ int main(int argc, char **argv) {
 
 node *create_new_node(const char *value) {
    node *new_node = malloc(sizeof(node));
-   strcpy(new_node -> value, value);
-   new_node -> next = NULL;
+   if (new_node != NULL) {
+       strcpy(new_node -> value, value);
+       new_node -> next = NULL;
+   }
    return new_node;
 }
 

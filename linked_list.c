@@ -93,9 +93,9 @@ void ll_insert(node *start, const char *value) {
     node *new_node = create_new_node(value);
     if (new_node == NULL) {
         printf("\n!!Unable to allocate memory!!");
-        return;
+    } else {
+        tmp -> next = new_node;
     }
-    tmp -> next = new_node;
 }
 
 node *ll_find(node *start, const char *value) {

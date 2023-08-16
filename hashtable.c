@@ -79,13 +79,13 @@ void ht_add(const char *value) {
         node *new_node = create_node(value);
         if (new_node == NULL) {
             printf("\n!!Unable to create new node!!");
+        } else {
+            const int index = hash(value);
+            if (hash_table[index] != NULL) {
+                new_node -> next =  hash_table[index];
+            }
+            hash_table[index] = new_node;
         }
-
-        const int index = hash(value);
-        if (hash_table[index] != NULL) {
-            new_node -> next =  hash_table[index];
-        }
-        hash_table[index] = new_node;
     }
 }
 

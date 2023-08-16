@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
 
 node *create_node(const char* value) {
     node *new_node = malloc(sizeof(node));
-    strcpy(new_node -> value, value);
+    strncpy(new_node -> value, value, MAX_SIZE_VALUE);
     new_node -> next = NULL;
     return new_node;
 }
@@ -98,7 +98,7 @@ void ht_del(const char *value) {
             node *prev = NULL;
 
             while (tmp != NULL) {
-                if (strcmp(tmp -> value, value) == 0) {
+                if (strncmp(tmp -> value, value, MAX_SIZE_VALUE) == 0) {
                     if (prev == NULL) {
                         // the first node in the list is being deleted
                         hash_table[index] = tmp -> next;

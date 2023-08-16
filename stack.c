@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,65 +10,85 @@ typedef struct node {
     struct node *next;
 } node;
 
-void push(const char *value);
-node *top();
-node *pop();
-void list();
-node *__create_new_node(const char *value);
-void __reset();
-void __init();
+typedef struct stack {
+    node *head;
+} stack;
 
-node *head;
+void push(stack *s, const char *value);
+void pop(stack *s);
+node *top(stack *s);
+size_t size(stack *s);
+void list(stack *s);
+node *__create_new_node(const char *value);
+void __reset(stack *s);
+void __init(stack *s);
 
 int main(int argc, char **argv) {
-    __init();
+    stack colors;
+    __init(&colors);
 
-    push("red");
-    push("green");
-    push("blue");
-    list();
+    push(&colors, "red");
+    push(&colors, "green");
+    push(&colors, "blue");
+    list(&colors);
+    printf("\nSize: %ld", size(&colors));
 
-    printf("\nPopping %s", pop() -> value);
-    printf("\nPopping %s", pop() -> value);
-    list();
+    pop(&colors);
+    pop(&colors);
+    list(&colors);
+    printf("\nSize: %ld", size(&colors));
 
-    printf("\nTop %s", top() -> value);
-    printf("\nPopping %s", pop() -> value);
-    list();
+    printf("\nTop %s", top(&colors) -> value);
+    pop(&colors);
+    list(&colors);
+    printf("\nSize: %ld", size(&colors));
 
-    push("cyan");
-    push("magenta");
-    push("yellow");
-    list();
+    push(&colors, "cyan");
+    push(&colors, "magenta");
+    push(&colors, "yellow");
+    list(&colors);
+    printf("\nSize: %ld", size(&colors));
+
+    printf("\n");
     return 0;
 }
 
-void push(const char *value) {
+void push(stack *s, const char *value) {
     node *new_node = __create_new_node(value);
 
-    if (new_node != NULL) {
-        if (head != NULL) {
-            new_node -> next = head;
+    if (new_node != NULL && s != NULL) {
+        if (s -> head != NULL) {
+            new_node -> next = s -> head;
         }
-        head = new_node;
+        s -> head = new_node;
     }
 }
 
-node *pop() {
-    node *popped;
-    if (head != NULL) {
-        popped = head;
-        head = head -> next;
+void pop(stack *s) {
+    if (s != NULL && s -> head != NULL) {
+        node *popped = s -> head;
+        s -> head = s -> head -> next;
+        free(popped);
     }
-    return popped;
 }
 
-node *top() {
-    return head;
+node *top(stack *s) {
+    return s -> head;
 }
 
-void list() {
-    node *tmp = head;
+size_t size(stack *s) {
+    size_t l = 0;
+    node *tmp = s -> head;
+
+    while (tmp != NULL) {
+        l ++;
+        tmp = tmp -> next;
+    }
+    return l;
+}
+
+void list(stack *s) {
+    node *tmp = s -> head;
     printf("\nDisplay stack values start");
 
     while (tmp != NULL) {
@@ -77,18 +98,18 @@ void list() {
     printf("\nEnd");
 }
 
-void __reset() {
-    head = NULL;
+void __reset(stack *s) {
+    s -> head = NULL;
 }
 
-void __init() {
-    __reset();
+void __init(stack *s) {
+    __reset(s);
 }
 
 node *__create_new_node(const char *value) {
     node *new_node = malloc(sizeof(node));
     if (new_node != NULL) {
-        strcpy(new_node -> value, value);
+        strncpy(new_node -> value, value, MAX_SIZE_VALUE);
         new_node -> next = NULL;
     }
     return new_node;

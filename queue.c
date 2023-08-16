@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,41 +10,49 @@ typedef struct node {
     struct node *next;
 } node;
 
-node *head, *tail;
+typedef struct queue {
+    node *head, *tail;
+} queue;
 
-void push(const char *value);
-node *poll();
-node *peek();
-void listq();
+void push(queue *q, const char *value);
+void poll(queue *q);
+node *peek(queue *q);
+size_t size(queue *q);
+void listq(queue *q);
 node *__create_new_node(const char *value);
-void __init();
-void __reset();
+void __init(queue *q);
+void __reset(queue *q);
 
 int main(int argc, char **argv) {
-    __init();
+    queue colors;
+    __init(&colors);
 
-    push("red");
-    push("green");
-    push("blue");
-    listq();
+    push(&colors, "red");
+    push(&colors, "green");
+    push(&colors, "blue");
+    listq(&colors);
+    printf("\nSize: %ld", size(&colors));
 
-    printf("\nPolled: %s", poll() -> value);
-    listq();
+    poll(&colors);
+    listq(&colors);
 
-    printf("\nPolled: %s", poll() -> value);
-    listq();
+    poll(&colors);
+    listq(&colors);
 
-    printf("\nPeeked: %s", peek() -> value);
+    printf("\nPeeked: %s", peek(&colors) -> value);
+    printf("\nSize: %ld", size(&colors));
 
-    push("cyan");
-    push("magenta");
-    push("yellow");
-    listq();
+    push(&colors, "cyan");
+    push(&colors, "magenta");
+    push(&colors, "yellow");
+    listq(&colors);
+    printf("\nSize: %ld", size(&colors));
 
+    printf("\n");
     return 0;
 }
 
-void push(const char *value) {
+void push(queue *q, const char *value) {
     if (value != NULL) {
 
         node *new_node = __create_new_node(value);
@@ -51,37 +60,47 @@ void push(const char *value) {
             printf("\n!!Unable to create new node!!");
 
         } else {
-            if (tail == NULL) {
-                head = tail = new_node;
+
+            if (q -> tail == NULL) {
+                q -> head = q -> tail = new_node;
             } else {
-                tail -> next = new_node;
-                tail = new_node;
+                q -> tail -> next = new_node;
+                q -> tail = new_node;
             }
         }
     }
 }
 
-node *peek() {
-    return head;
+node *peek(queue *q) {
+    return q -> head;
 }
 
-node *poll() {
-    node *polled = NULL;
-
-    if (head != NULL) {
-        polled = head;
-        if (head -> next == NULL) {
-            __reset();
+void poll(queue *q) {
+    if (q != NULL && q -> head != NULL) {
+        node *polled = q -> head;
+        if (q -> head -> next == NULL) {
+            __reset(q);
 
         } else {
-            head = head -> next;
+            q -> head = q -> head -> next;
         }
+        free(polled);
     }
-    return polled;
 }
 
-void listq() {
-    node *tmp = head;
+size_t size(queue *q) {
+    size_t l = 0;
+    node *tmp = q -> head;
+
+    while (tmp != NULL) {
+        l ++;
+        tmp = tmp -> next;
+    }
+    return l;
+}
+
+void listq(queue *q) {
+    node *tmp = q -> head;
     printf("\nDisplay queue values start");
 
     while (tmp != NULL) {
@@ -94,17 +113,18 @@ void listq() {
 node *__create_new_node(const char *value) {
     node *new_node = malloc(sizeof(node));
     if (new_node != NULL) {
-        strcpy(new_node -> value, value);
+        strncpy(new_node -> value, value, MAX_SIZE_VALUE);
         new_node -> next = NULL;
     }
     return new_node;
 }
 
-void __init() {
-    __reset();
+void __init(queue *q) {
+    __reset(q);
 }
 
-void __reset() {
-    head = tail = NULL;
+void __reset(queue *q) {
+    q -> head = NULL;
+    q -> tail = NULL;
 }
 

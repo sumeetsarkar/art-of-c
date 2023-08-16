@@ -14,9 +14,9 @@ node *hash_table[MAX_SIZE_TABLE];
 
 void __init();
 void ht_print();
-void ht_add(const char *value); // allows duplicate
-void ht_del(const char *value); // TODO
-node *ht_get(const char *value); // returns first search
+void ht_add(const char *value);
+void ht_del(const char *value);
+node *ht_get(const char *value);
 unsigned int hash(const char *value);
 node *create_node(const char *value);
 
@@ -33,8 +33,36 @@ int main(int argc, char **argv) {
     ht_add("Cookie");
     ht_add("Honey");
     ht_add("Jack");
+    ht_add("Jack");
+    ht_add("Zuzu");
     ht_add("Zuzu");
 
+    ht_print();
+
+    printf("\nDeleting Sam");
+    ht_del("Sam");
+    ht_print();
+
+    printf("\nDeleting Sam again, this should be a NO OP");
+    ht_del("Sam");
+    ht_print();
+
+    printf("\nDeleting Zuzu");
+    ht_del("Zuzu");
+    ht_print();
+
+    ht_del("Honey");
+    ht_print();
+    ht_del("Daisy");
+    ht_print();
+    ht_del("Cookie");
+    ht_print();
+
+    ht_add("Cookie");
+    ht_add("Daisy");
+    ht_add("Honey");
+    ht_add("Sam");
+    ht_add("Zuzu");
     ht_print();
     return 0;
 }
@@ -47,13 +75,13 @@ node *create_node(const char* value) {
 }
 
 void ht_add(const char *value) {
-    if (value != NULL) {
+    if (value != NULL && ht_get(value) == NULL) {
         node *new_node = create_node(value);
         if (new_node == NULL) {
             printf("\n!!Unable to create new node!!");
         }
 
-        int index = hash(value);
+        const int index = hash(value);
         if (hash_table[index] != NULL) {
             new_node -> next =  hash_table[index];
         }
@@ -62,21 +90,48 @@ void ht_add(const char *value) {
 }
 
 void ht_del(const char *value) {
-    // TODO
+    if (value != NULL) {
+        const int index = hash(value);
+
+        if (hash_table[index] != NULL) {
+            node *tmp = hash_table[index];
+            node *prev = NULL;
+
+            while (tmp != NULL) {
+                if (strcmp(tmp -> value, value) == 0) {
+                    if (prev == NULL) {
+                        // the first node in the list is being deleted
+                        hash_table[index] = tmp -> next;
+                        
+                    } else {
+                        prev -> next = tmp -> next;
+                    }
+                    free(tmp);
+                    break;
+                }
+                prev = tmp;
+                tmp = tmp -> next;
+            }
+        }
+    }
 }
 
 node *ht_get(const char *value) {
     node *ret_val = NULL;
 
-    int index = hash(value);
-    if (hash_table[index] != NULL) {
-        node *tmp = hash_table[index];
-        while (tmp != NULL) {
-            if (strcmp(tmp -> value, value) == 0) {
-                ret_val = tmp;
-                break;
+    if (value != NULL) {
+        const int index = hash(value);
+
+        if (hash_table[index] != NULL) {
+            node *tmp = hash_table[index];
+
+            while (tmp != NULL) {
+                if (strcmp(tmp -> value, value) == 0) {
+                    ret_val = tmp;
+                    break;
+                }
+                tmp = tmp -> next;
             }
-            tmp = tmp -> next;
         }
     }
     return ret_val;

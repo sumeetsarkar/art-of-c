@@ -1,6 +1,28 @@
 #include <stdio.h>
 
-int main() {
+#define SIZE 10
+int global_arr[SIZE]; // allowed
+
+int n = 100;
+// int global_var_len_arr[n]; // x error: not allowed
+
+const int n2 = 200;
+int global_var_len_arr2[n2]; // ! warn: var len arr folded to constant array
+                             // as an extention
+
+int main(int argc, char **argv) {
+    int arr_var_len[argc]; // allowed
+    int n = 100;
+    int arr_var_len2[n]; // allowed
+
+    int x = 0;
+    printf("\nEnter length of arr:");
+    scanf("\n%d", &x);
+    int arr_var_len3[x];
+    printf("\nsize of arr_var_len3: %zu", sizeof(arr_var_len3));
+    printf("\nlength of arr_var_len3: %zu", sizeof(arr_var_len3)/ sizeof(arr_var_len3[0]));
+    printf("\n\n");
+
     int num[] = { 11, 22, 33, 44, 55 };
     int num2[1] = { 10, 20, 30, 40, 50 };
 

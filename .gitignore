@@ -1,3 +1,5 @@
 *.out
 *.dSYM
 out
+tags
+

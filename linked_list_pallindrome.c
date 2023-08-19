@@ -106,7 +106,6 @@ void insert(linkedlist *ll, int value) {
         printf("\n!!Cannot allocate new node!!");
         return;
     }
-
     new_node -> value = value;
     new_node -> next = NULL;
 
@@ -124,7 +123,6 @@ void insert(linkedlist *ll, int value) {
 
 int is_pallindrome(linkedlist *ll) {
     int ret_val = 1;
-
     if (ll == NULL) {
         return ret_val;
     }
@@ -144,10 +142,9 @@ int is_pallindrome(linkedlist *ll) {
     middle = tmp;
     middle -> next = _reverse(middle -> next);
 
+    // traverse the length of shorter list (right to end)
     node *left = ll -> head;
     node *right = middle -> next;
-
-    // traverse the length of shorter list (right to end)
     while (right != NULL) {
         if (left -> value != right -> value) {
             ret_val = 0;
@@ -169,7 +166,6 @@ void print_list(linkedlist *ll) {
 
     printf("\n");
     node *tmp = ll -> head;
-
     while (tmp != NULL) {
         printf("%d -> ", tmp -> value);
         tmp = tmp -> next;
@@ -181,19 +177,16 @@ void reverse(linkedlist *ll) {
     if (ll == NULL) {
         return;
     }
-
     ll -> head = _reverse(ll -> head);
 }
 
 node *_reverse(node *head) {
     node *prev = NULL;
-
     if (head == NULL) {
         return prev;
     }
 
     node *tmp = head;
-
     while (tmp != NULL) {
         node *swap = tmp -> next;
         tmp -> next = prev;
@@ -205,7 +198,6 @@ node *_reverse(node *head) {
 
 int size(linkedlist *ll) {
     int len = 0;
-
     if (ll == NULL) {
         return len;
     }
@@ -225,7 +217,6 @@ void __free(linkedlist *ll) {
 
     node *tmp = ll -> head;
     ll -> head = NULL;
-
     while (tmp != NULL) {
         node *to_delete = tmp;
         tmp = tmp -> next;

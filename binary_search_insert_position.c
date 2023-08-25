@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
 }
 
+// bisect_left
 int searchInsert(int* nums, int size, int target) {
     int l = 0, r = size;
 

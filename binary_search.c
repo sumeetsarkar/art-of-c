@@ -24,6 +24,19 @@ int main(int argc, char **argv) {
     find_value = 120;
     printf("\nFind value: %d, Found at: %d", find_value, binary_search(arr, len, find_value));
 
+    int arr2[] = {};
+    int len2 = sizeof(arr2)/ sizeof(arr2[0]);
+    find_value = 1;
+    printf("\nFind value: %d, Found at: %d", find_value, binary_search(arr2, len2, find_value));
+
+    int arr3[] = { 1 };
+    int len3 = sizeof(arr3)/ sizeof(arr3[0]);
+    find_value = 1;
+    printf("\nFind value: %d, Found at: %d", find_value, binary_search(arr3, len3, find_value));
+
+    find_value = 0;
+    printf("\nFind value: %d, Found at: %d", find_value, binary_search(arr3, len3, find_value));
+
     printf("\n");
     return EXIT_SUCCESS;
 }

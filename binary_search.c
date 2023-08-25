@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 }
 
 int binary_search(int *arr, int len, int value) {
-    int l = 0, r = len - 1;
+    int l = 0, r = len;
     
     while (l < r) {
         int m = l + ((r - l) / 2);

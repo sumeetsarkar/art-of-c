@@ -73,11 +73,7 @@ heap *new_heap(int capacity) {
 
     h -> capacity = capacity;
     h -> size = 0;
-    h -> arr = malloc(sizeof(int) * h -> capacity);
-
-    for (int i = 0; i < h -> capacity; i++) {
-        h -> arr[i] = 0;
-    }
+    h -> arr = calloc(sizeof(int), h -> capacity);
 
     if (h -> arr == NULL) {
         h -> capacity = 0;

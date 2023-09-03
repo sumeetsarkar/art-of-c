@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MIN_VAL -(pow(10, 4) + 1)
+
 int max_subarray_sum(int *arr, int len);
 
 int main(int argc, char **argv) {
@@ -31,8 +33,8 @@ int main(int argc, char **argv) {
 
 int max_subarray_sum(int *arr, int n) {
     // kadane's algorithm
-    int running_sum = -(pow(10, 4) + 1);
-    int max_sum = -(pow(10, 4) + 1);
+    int running_sum = MIN_VAL;
+    int max_sum = MIN_VAL;
     int i = 0;
 
     while (i < n) {

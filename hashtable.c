@@ -107,6 +107,7 @@ void ht_del(const char *value) {
                         prev -> next = tmp -> next;
                     }
                     free(tmp);
+                    tmp = NULL;
                     break;
                 }
                 prev = tmp;

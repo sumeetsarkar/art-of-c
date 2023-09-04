@@ -1,5 +1,7 @@
-*.out
-*.dSYM
+**/*.out
+**/*.o
+**/*.dSYM
 out
 tags
+tmp
 

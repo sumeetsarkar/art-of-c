@@ -19,6 +19,7 @@ Note: this repository is constantly evolving and certain code styles & concepts 
 
 ### Topics
 - Base C concepts
+- [pointers](./pointers)
 - [arrays](./arrays)
 - [strings](./strings)
 - [makefiles](./makefiles)

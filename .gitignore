@@ -1,7 +1,27 @@
+# Precompiled headers
+**/*.gch
+
+# Object files
 **/*.o
+**/*.obj
+
+# Executables
 **/*.out
+**/*.app
+**/*.exe
+
+# Compiled Dynamic libraries
+*.so
+
+# Debug symbols
 **/*.dSYM
+
+# Just notorious files
 out
-tags
 temp
+tmp
+tags
+.DS_Store
+logs
+**/*.log
 

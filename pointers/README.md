@@ -1,2 +1,2 @@
-- [function pointers](./function_pointers)
+[function pointers](./function_pointers)
 

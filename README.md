@@ -8,7 +8,9 @@ File names follow the format of `<concept>.c` or `<concept>_<sub_concept/scenari
 ```
 function_basic.c
 function_pass_by_types.c
-function_pointer.c
+function_pointer_basic.c
+function_pointer_typedef.c
+function_pointer_return_from_function.c
 ```
 
 Regarding learning c, use this repo has a reference repo to check concept code, but there is no substitution to writing code yourself. Learn a concept, build on it, try plenty examples. Once the concept is solidified with example apps, build over it with another C concept (just like a lego) but at each step, build or enhance your existing example apps. Implement data structures and algorithms to further cement your understanding.

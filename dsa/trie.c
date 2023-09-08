@@ -26,7 +26,7 @@ typedef enum {
 } utype;
 
 typedef struct _ll_node {
-    uint8_t utype;
+    utype type;
     union {
         int32_t i_data;
         char *s_data;
@@ -35,7 +35,7 @@ typedef struct _ll_node {
     struct _ll_node *prev;
 } ll_node;
 
-ll_node *ll_node_create(utype _utype, uint32_t size);
+ll_node *ll_node_create(utype type, uint32_t size);
 void ll_node_destroy(ll_node *node);
 
 typedef struct {
@@ -102,9 +102,7 @@ int main(int argc, char **argv) {
 
     ll_node *tmp = completions -> first;
     while (tmp != NULL) {
-        if (tmp -> utype == UT_CHAR_P) {
-            printf("%s<\n", tmp -> data.s_data);
-        }
+        printf("%s\n", tmp -> data.s_data);
         tmp = tmp -> next;
     }
 
@@ -302,27 +300,27 @@ void dll_destroy(dll *_dll) {
     _dll = NULL;
 }
 
-ll_node *ll_node_create(utype _utype, uint32_t size) {
+ll_node *ll_node_create(utype type, uint32_t size) {
     ll_node *node = malloc(sizeof(*node));
-    node -> utype = _utype;
+    node -> type = type;
     node -> next = NULL;
     node -> prev = NULL;
-    if (node -> utype == UT_INT) {
+    if (node -> type == UT_INT) {
         node -> data.i_data = 0;
-    } else if (_utype == UT_CHAR_P) {
+    } else if (type == UT_CHAR_P) {
         node -> data.s_data = malloc(sizeof(char) * (size + 1));
     }
     return node;
 }
 
 void ll_node_destroy(ll_node *node) {
-    if (node -> utype == UT_INT) {
+    if (node -> type == UT_INT) {
         node -> data.i_data = 0;
-    } else if (node -> utype == UT_CHAR_P && node -> data.s_data != NULL) {
+    } else if (node -> type == UT_CHAR_P && node -> data.s_data != NULL) {
         free(node -> data.s_data);
         node -> data.s_data = NULL;
     }
-    node -> utype = UT_UNDEFINED;
+    node -> type = UT_UNDEFINED;
     node -> next = NULL;
     node -> prev = NULL;
     free(node);

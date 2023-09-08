@@ -31,7 +31,6 @@ Note: this repository is constantly evolving and certain code styles & concepts 
 - Header files
 - File handling more concepts and reading stdin
 - Generic libs for Hashtable, Linkedlist, Stack, Queues
-- Tries
 - Bit manipulation
 - Threads basic
 - More of dsa

@@ -33,7 +33,6 @@ Note: this repository is constantly evolving and certain code styles & concepts 
 - Generic libs for Hashtable, Linkedlist, Stack, Queues
 - Tries
 - Bit manipulation
-- Union
 - Threads basic
 - More of dsa
 

@@ -25,6 +25,7 @@ Note: this repository is constantly evolving and certain code styles & concepts 
 - [arrays](./arrays)
 - [strings](./strings)
 - [makefiles](./makefiles)
+- [unions/struct](./unions)
 - [dsa](./dsa)
 
 ### Upcoming:

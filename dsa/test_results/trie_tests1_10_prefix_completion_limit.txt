@@ -1,0 +1,159 @@
+Executed on Macbook Air
+  Chip: Apple M1
+  Total Number of Cores: 8 (4 performance and 4 efficiency)
+  Memory: 16 GB
+  OS: Ventura 13.5.2
+
+------------------------------------------------------------
+Loading Trie start time: 1694245393
+Loading Trie end time: 1694245393
+Trie loaded with 1000 entries in 0s
+
+Prefix completions start time: 1694245393
+Prefix completions end time: 1694245397
+
+Trie entries: 1000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 851586 in 4s
+
+Destroying Trie start time: 1694245397
+Destroying Trie end time: 1694245397
+Trie memory freed with 1000 entries in 0s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694245404
+Loading Trie end time: 1694245405
+Trie loaded with 10000 entries in 1s
+
+Prefix completions start time: 1694245405
+Prefix completions end time: 1694245438
+
+Trie entries: 10000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 7530282 in 33s
+
+Destroying Trie start time: 1694245438
+Destroying Trie end time: 1694245438
+Trie memory freed with 10000 entries in 0s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694245639
+Loading Trie end time: 1694245641
+Trie loaded with 100000 entries in 2s
+
+Prefix completions start time: 1694245641
+Prefix completions end time: 1694245687
+
+Trie entries: 100000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 10000000 in 46s
+
+Destroying Trie start time: 1694245687
+Destroying Trie end time: 1694245688
+Trie memory freed with 100000 entries in 1s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694246717
+Loading Trie end time: 1694246741
+Trie loaded with 1000000 entries in 24s
+
+Prefix completions start time: 1694246741
+Prefix completions end time: 1694246787
+
+Trie entries: 1000000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 10000000 in 46s
+
+Destroying Trie start time: 1694246787
+Destroying Trie end time: 1694246836
+Trie memory freed with 1000000 entries in 49s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694247161
+Loading Trie end time: 1694247197
+Trie loaded with 1500000 entries in 36s
+
+Prefix completions start time: 1694247197
+Prefix completions end time: 1694247243
+
+Trie entries: 1500000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 10000000 in 46s
+
+Destroying Trie start time: 1694247243
+Destroying Trie end time: 1694247336
+Trie memory freed with 1500000 entries in 93s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694247760
+Loading Trie end time: 1694247811
+Trie loaded with 2000000 entries in 51s
+
+Prefix completions start time: 1694247811
+Prefix completions end time: 1694247857
+
+Trie entries: 2000000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 10000000 in 46s
+
+Destroying Trie start time: 1694247857
+Destroying Trie end time: 1694247993
+Trie memory freed with 2000000 entries in 136s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694248103
+Loading Trie end time: 1694248182
+Trie loaded with 3000000 entries in 79s
+
+Prefix completions start time: 1694248182
+Prefix completions end time: 1694248229
+
+Trie entries: 3000000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 10000000 in 47s
+
+Destroying Trie start time: 1694248229
+Destroying Trie end time: 1694248491
+Trie memory freed with 3000000 entries in 262s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694248849
+Loading Trie end time: 1694248953
+Trie loaded with 3500000 entries in 104s
+
+Prefix completions start time: 1694248953
+Prefix completions end time: 1694249015
+
+Trie entries: 3500000
+Prefix size: 2
+Prefix completions limit: 10
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 10000000 in 62s
+
+Destroying Trie start time: 1694249015
+Destroying Trie end time: 1694249484
+Trie memory freed with 3500000 entries in 469s
+
+
+------------------------------------------------------------

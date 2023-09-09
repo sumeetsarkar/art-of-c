@@ -1,0 +1,64 @@
+Executed on Macbook Air
+  Chip: Apple M1
+  Total Number of Cores: 8 (4 performance and 4 efficiency)
+  Memory: 16 GB
+  OS: Ventura 13.5.2
+
+------------------------------------------------------------------------------
+Loading Trie start time: 1694244703
+Loading Trie end time: 1694244703
+Trie loaded with 1000 entries in 0s
+
+Prefix completions start time: 1694244703
+Prefix completions end time: 1694244706
+
+Trie entries: 1000
+Prefix size: 2
+Prefix completions limit: 100000
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 852435 in 3s
+
+Destroying Trie start time: 1694244706
+Destroying Trie end time: 1694244706
+Trie memory freed with 1000 entries in 0s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694244714
+Loading Trie end time: 1694244714
+Trie loaded with 10000 entries in 0s
+
+Prefix completions start time: 1694244714
+Prefix completions end time: 1694244752
+
+Trie entries: 10000
+Prefix size: 2
+Prefix completions limit: 100000
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 8445794 in 38s
+
+Destroying Trie start time: 1694244752
+Destroying Trie end time: 1694244752
+Trie memory freed with 10000 entries in 0s
+
+
+------------------------------------------------------------
+Loading Trie start time: 1694244830
+Loading Trie end time: 1694244832
+Trie loaded with 100000 entries in 2s
+
+Prefix completions start time: 1694244832
+Prefix completions end time: 1694245219
+
+Trie entries: 100000
+Prefix size: 2
+Prefix completions limit: 100000
+Prefix completions search attempts: 1000000
+Prefix completions search found total: 84622665 in 387s
+
+Destroying Trie start time: 1694245219
+Destroying Trie end time: 1694245220
+Trie memory freed with 100000 entries in 1s
+
+
+------------------------------------------------------------

@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 // 0  - 9  for digits
 // 10 - 35 for english alphabets
@@ -49,6 +50,7 @@ void dll_destroy(dll *_dll);
 void dll_add_last_i(dll *_dll, int32_t i_data);
 void dll_add_last_s(dll *_dll, char *c_data, int32_t size);
 void dll_remove_last(dll *_dll);
+void dll_print(dll *_dll);
 
 typedef struct _trie_node {
     struct _trie_node *node[MAX_TRIE_SUPPORTED_CHARS];
@@ -65,9 +67,20 @@ void trie_get_word_completions(trie_node *tn, char *prefix, dll *completions);
 trie_node *trie_node_create(uint32_t level);
 void trie_node_destroy(trie_node *tn);
 
-int main(int argc, char **argv) {
-    trie_node *tn = trie_node_create(0);
+void random_name_generator(char *str, uint32_t size);
+void populate_trie(trie_node *tn, uint32_t size, uint32_t count);
+void test_mode(uint32_t count_trie_entries, uint32_t size_prefix, uint32_t count_prefix_completions_search);
 
+int main(int argc, char **argv) {
+    if (argc > 3) {
+        uint32_t count_trie_entries = atoi(argv[1]);
+        uint32_t size_prefix = atoi(argv[2]);
+        uint32_t count_prefix_completions_search = atoi(argv[3]);
+        test_mode(count_trie_entries, size_prefix, count_prefix_completions_search);
+        return EXIT_SUCCESS;
+    }
+
+    trie_node *tn = trie_node_create(0);
     trie_put_word(tn, "purple");
     trie_put_word(tn, "r");
     trie_put_word(tn, "rr");
@@ -96,18 +109,88 @@ int main(int argc, char **argv) {
     printf("%d\n", trie_has_word(tn, "zzzzzZZzzZZz"));
     printf("%d\n", trie_has_word(tn, "zzzzzZZz"));
 
+    printf("Prefix completions limit: %d\n", MAX_WORD_COMPLETIONS);
+
     dll *completions = dll_create();
     trie_get_word_completions(tn, "r", completions);
     trie_get_word_completions(tn, "z", completions);
+    dll_print(completions);
+    printf("Prefix completions size: %d\n", completions -> size);
+    dll_destroy(completions);
 
-    ll_node *tmp = completions -> first;
+    trie_node_destroy(tn);
+}
+
+void test_mode(uint32_t count_trie_entries, uint32_t size_prefix, uint32_t count_prefix_completions_search) {
+    trie_node *tn = trie_node_create(0);
+    // Setup
+    time_t tstart_load;
+    time(&tstart_load);
+    printf("Loading Trie start time: %ld\n", tstart_load);
+    // NOTE: random populate
+    populate_trie(tn, MAX_WORD_LEN, count_trie_entries);
+
+    time_t tend_load;
+    time(&tend_load);
+    printf("Loading Trie end time: %ld\n", tend_load);
+    printf("Trie loaded with %d entries in %lds\n\n",
+            count_trie_entries, (tend_load - tstart_load));
+
+    // Search prefix completions
+    time_t tstart_completions;
+    time(&tstart_completions);
+    printf("Prefix completions start time: %ld\n", tstart_completions);
+    
+    uint32_t total_found = 0;
+
+    for (int i = 0; i < count_prefix_completions_search; i++) {
+        char *prefix = malloc(sizeof(*prefix) * (size_prefix + 1));
+        random_name_generator(prefix, size_prefix + 1);
+
+        dll *completions = dll_create();
+        trie_get_word_completions(tn, prefix, completions);
+
+        // uncomment to see all the completions
+        // keep commented during stats check
+        /*printf("Prefix completions size for '%s': %d\n", prefix, completions -> size);*/
+        /*dll_print(completions);*/
+
+        total_found += completions -> size;
+        dll_destroy(completions);
+        free(prefix);
+    }
+
+    time_t tend_completions;
+    time(&tend_completions);
+    printf("Prefix completions end time: %ld\n\n", tend_completions);
+    printf("Trie entries: %d\n", count_trie_entries);
+    printf("Prefix size: %d\n", size_prefix);
+    printf("Prefix completions limit: %d\n", MAX_WORD_COMPLETIONS);
+    printf("Prefix completions search attempts: %d\n", count_prefix_completions_search);
+    printf("Prefix completions search found total: %d in %lds\n\n",
+            total_found, (tend_completions - tstart_completions));
+
+    // Tear Down
+    time_t tstart_free;
+    time(&tstart_free);
+
+    printf("Destroying Trie start time: %ld\n", tstart_free);
+    trie_node_destroy(tn);
+
+    time_t tend_free;
+    time(&tend_free);
+    printf("Destroying Trie end time: %ld\n", tend_free);
+    printf("Trie memory freed with %d entries in %lds\n",
+            count_trie_entries, (tend_free - tstart_free));
+    printf("\n\n------------------------------------------------------------\n");
+}
+
+void dll_print(dll *_dll) {
+    ll_node *tmp = _dll -> first;
     while (tmp != NULL) {
         printf("%s\n", tmp -> data.s_data);
         tmp = tmp -> next;
     }
-
-    dll_destroy(completions);
-    trie_node_destroy(tn);
 }
 
 uint8_t get_index(const char c) {
@@ -185,6 +268,8 @@ bool trie_has_word(trie_node *tn, char *word) {
 }
 
 void _traverse_all_paths(trie_node *tn, dll *completions) {
+    if (completions -> size >= MAX_WORD_COMPLETIONS)
+        return;
     if (tn -> is_word) {
         dll_add_last_s(completions, tn -> prefix, tn -> level);
     }
@@ -325,5 +410,34 @@ void ll_node_destroy(ll_node *node) {
     node -> prev = NULL;
     free(node);
     node = NULL;
+}
+
+void random_name_generator(char *str, uint32_t size) {
+    if (size && str) {
+        const char *charset = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 ";
+        const int8_t charset_size = strlen(charset);
+        int8_t i = 0;
+        for (i = 0; i < size - 1; i++) {
+            int8_t index = rand() % charset_size;
+            str[i] = charset[index];
+        }
+        str[i] = 0;
+    }
+}
+
+void populate_trie(trie_node *tn, uint32_t size, uint32_t count) {
+    srand(time(NULL));
+
+    int i = 0;
+    while (i < count) {
+        char *r1 = malloc(sizeof(*r1) * size);
+        random_name_generator(r1, size);
+        trie_put_word(tn, r1);
+
+        /*printf("%s\n", r1);*/
+        free(r1);
+        r1 = NULL;
+        i += 1;
+    }
 }
 

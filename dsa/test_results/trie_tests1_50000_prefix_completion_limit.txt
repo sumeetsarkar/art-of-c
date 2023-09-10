@@ -1,0 +1,71 @@
+Executed on Macbook Air
+  Chip: Apple M1
+  Total Number of Cores: 8 (4 performance and 4 efficiency)
+  Memory: 16 GB
+  OS: Ventura 13.5.2
+
+------------------------------------------------------------------------------
+Loading Trie start time: 1694240656
+Loading Trie end time: 1694240679
+Trie loaded with 1000000 entries in 23s
+
+Prefix completions limit: 50000
+Prefix completions start time: 1694240679
+Prefix completions size for rs: 983
+Prefix completions size for zz: 902
+Prefix completions size for df: 956
+Prefix completions size for te: 941
+Prefix completions size for a: 30894
+Prefix completions size for b: 30842
+Prefix completions size for t: 30909
+Prefix completions size for e: 30596
+Prefix completions size for s: 30662
+Prefix completions size for r: 30914
+Prefix completions size for u: 30952
+Prefix completions size for c: 30784
+Prefix completions size for 1: 15664
+Prefix completions size for  : 46331
+Prefix completions size for k: 30694
+Prefix completions end time: 1694240685
+
+343024 Prefix completions found in 6s
+
+Destroying Trie start time: 1694240685
+Destroying Trie end time: 1694240740
+Trie memory freed with 1000000 entries in 55s
+
+------------------------------------------------------------------------------
+Loading Trie start time: 1694241195
+Loading Trie end time: 1694241273
+Trie loaded with 3000000 entries in 78s
+
+Prefix completions limit: 50000
+Prefix completions start time: 1694241273
+Prefix completions size for rs: 2882
+Prefix completions size for zz: 2877
+Prefix completions size for df: 2793
+Prefix completions size for te: 2905
+Prefix completions size for a: 50000
+Prefix completions size for b: 50000
+Prefix completions size for t: 50000
+Prefix completions size for e: 50000
+Prefix completions size for s: 50000
+Prefix completions size for r: 50000
+Prefix completions size for u: 50000
+Prefix completions size for c: 50000
+Prefix completions size for 1: 46178
+Prefix completions size for  : 50000
+Prefix completions size for k: 50000
+Prefix completions end time: 1694241304
+
+557635 Prefix completions found in 31s
+
+Destroying Trie start time: 1694241304
+Destroying Trie end time: 1694241583
+Trie memory freed with 3000000 entries in 279s
+
+------------------------------------------------------------------------------
+3x increase in dataset -> ~5x increase in computing time
+
+
+------------------------------------------------------------------------------

@@ -16,8 +16,11 @@ int main(int argc, char **argv) {
     void (*pf_add)(int, int, void (*pf)(int)) = &add;
     pf_add(30, 6, pf_done);
 
-    int (*pf_add_r)(int, int) = &add_r;
+    int (*pf_add_r)(int, int) = add_r;  // here, is same as &add_r;
     printf("\nResult returning func pointer: %d", pf_add_r(10, 8));
+
+    // can also be called as following by de-referencing the pointer
+    printf("\nResult returning func pointer: %d", (*pf_add_r)(10, 8));
 
     printf("\n");
     return EXIT_SUCCESS;

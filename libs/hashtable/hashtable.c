@@ -24,8 +24,12 @@ uint32_t hash_table_get_index(hash_table *ht, const char *key, uint32_t key_len)
 }
 
 uint32_t hash_table_hash(const char *key, uint32_t key_len) {
-    // TODO
-    return 0;
+    uint32_t hashcode = 0;
+    for (int i = 0; i < key_len; i++) {
+        hashcode += key[i] + 7;
+        hashcode *= key[i];
+    }
+    return hashcode;
 }
 
 bool hash_table_equals(const char *this_key, uint32_t this_key_len,
@@ -132,6 +136,21 @@ hash_table *hash_table_create(uint32_t size, hash_function *hash_fn,
 }
 
 void hash_table_destroy(hash_table *ht) {
-    // TODO
+    for (int i = 0; i < ht -> size; i++) {
+        entry *_entry = ht -> entries[i];
+        while (_entry) {
+            ht -> free_fn(_entry -> object);
+            free(_entry -> key);
+            _entry -> key_len = 0;
+            entry *_next_entry = _entry -> next;
+            _entry -> next = NULL;
+            free(_entry);
+            _entry = _next_entry;
+        }
+        ht -> entries[i] = NULL;
+    }
+    free(ht -> entries);
+    free(ht);
+    ht = NULL;
 }
 

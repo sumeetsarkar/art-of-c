@@ -1,0 +1,5 @@
+➜ ./test 8192000 64 100000000 0
+Hashtable size: 8192000
+Put and Get Operations: 100000000 completed in 175s             (strncmp Value assertion time included)
+Destroy hash_table in 8s
+

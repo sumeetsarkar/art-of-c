@@ -1,5 +1,6 @@
 #include "hashtable.h"
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -18,17 +19,18 @@ typedef struct _hash_table {
     entry **entries;
 } hash_table;
 
-uint32_t hash_table_get_index(hash_table *ht, const char *key, uint32_t key_len) {
-    uint32_t hash_key = ht -> hash_fn(key, key_len);
+uint64_t hash_table_get_index(hash_table *ht, const char *key, uint32_t key_len) {
+    uint64_t hash_key = ht -> hash_fn(key, key_len);
     return hash_key % ht -> size;
 }
 
-uint32_t hash_table_hash(const char *key, uint32_t key_len) {
-    uint32_t hashcode = 0;
+uint64_t hash_table_hash(const char *key, uint32_t key_len) {
+    uint64_t hashcode = 0;
     for (int i = 0; i < key_len; i++) {
         hashcode += key[i] + 7;
-        hashcode *= key[i];
+        hashcode *= (key[i] + 7);
     }
+    /*printf("Hashcode for key: %s with key_len: %d, %lld\n", key, key_len, hashcode);*/
     return hashcode;
 }
 
@@ -70,7 +72,8 @@ bool hash_table_put(hash_table *ht, const char *key, uint32_t key_len, void *val
     if (_new_entry == NULL)
         return false;
 
-    _new_entry -> key = strndup(key, key_len);
+    _new_entry -> key = malloc((key_len + 1) * sizeof(char));
+    strncpy(_new_entry -> key, key, key_len);
     _new_entry -> key_len = key_len;
     _new_entry -> object = value;
     _new_entry -> next = _entry;
@@ -152,5 +155,16 @@ void hash_table_destroy(hash_table *ht) {
     free(ht -> entries);
     free(ht);
     ht = NULL;
+}
+
+void hash_table_hashcode_stats(hash_table *ht, hashcode_stats *hc_stats) {
+    uint64_t used = 0;
+    for (int i = 0; i < ht -> size; i++) {
+        if (ht -> entries[i]) {
+            used += 1;
+        }
+    }
+    hc_stats -> size = ht -> size;
+    hc_stats -> used = used;
 }
 

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, char **argv) {
     char colors[4];
@@ -62,7 +63,17 @@ int main(int argc, char **argv) {
     // get 'by' from 'rgby'
     char colors6[] = { 'r', 'g', 'b', 'y', '\0' };
     char *p6 = &colors6[2]; // note the null termination above
-    printf("\np6: %s", p6);
+    printf("\np6: %s\n", p6);
+
+    // adding null char at declare time, guess the length?
+    char stack_str[128] = {'a', 0, 'b'};
+    printf("stack str len: %zu\n", strnlen(stack_str, 128));
+
+    char stack_str2[128] = {'a', 'c', 'd', 0x00, 'b'};
+    printf("stack str len: %zu\n", strnlen(stack_str2, 128));
+
+    char stack_str3[128] = {'a', '\0', 'b'};
+    printf("stack str len: %zu\n", strnlen(stack_str3, 128));
     
     printf("\n");
     return 0;

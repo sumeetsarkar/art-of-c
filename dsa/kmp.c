@@ -28,6 +28,7 @@ int main(int argc, char **argv) {
         }
         r += 1;
     }
+    lps[0] = -1;
 
     for (uint32_t i = 0; i < len_needle + 1; i++)
         printf("%d", lps[i]);
@@ -48,8 +49,9 @@ int main(int argc, char **argv) {
             j += 1;
         } else {
             j = lps[j];
-            if (j == 0) {
+            if (j == -1) {
                 i += 1;
+                j = 0;
             }
         }
         if (j == len_needle) {

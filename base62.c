@@ -75,7 +75,6 @@ void base62_encode(char *input, uint32_t size, char *encoded) {
         i += 1;
     } while (num);
     encoded[i] = 0x00;
-    /*printf("encoded=%s\n", encoded);*/
 
     uint32_t len = strnlen(encoded, MAX_LEN);
     for (uint32_t j = 0; j < len/2; j++) {

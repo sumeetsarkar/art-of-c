@@ -5,32 +5,33 @@
 
 int main(int argc, char **argv) {
     if (argc < 3) {
-        printf("<prog> <needle> <haystack>\n");
+        printf("<prog> <haystack> <needle>\n");
+        //Eg: ./kmp "aabaaabaaac" "aabaaac"
         return EXIT_FAILURE;
     }
-    char *needle = argv[1];
-    char *haystack = argv[2];
+    char *haystack = argv[1];
+    char *needle = argv[2];
 
     uint32_t len_needle = strnlen(needle, 128);
-    uint32_t lps[len_needle + 1];
+    uint32_t lps[len_needle];
 
-    for (uint32_t i = 0; i < len_needle + 1; i++)
+    for (uint32_t i = 0; i < len_needle; i++)
         lps[i] = 0;
 
-    uint32_t l = 0, r = 1;
-
-    while (l < r && r < (len_needle + 1)) {
-        if (needle[l] == needle[r]) {
-            lps[r + 1] = lps[r] + 1;
-            l += 1;
+    uint32_t j = 0, i = 1;
+    while (i < len_needle) {
+        if (needle[i] == needle[j]) {
+            lps[i] = lps[j] + 1;
+            i += 1;
+            j += 1;
+        } else if (j > 0) {
+            j = lps[j - 1];
         } else {
-            l = 0;
+            i += 1;
         }
-        r += 1;
     }
-    lps[0] = -1;
 
-    for (uint32_t i = 0; i < len_needle + 1; i++)
+    for (uint32_t i = 0; i < len_needle; i++)
         printf("%d", lps[i]);
 
     printf("\n");
@@ -39,20 +40,18 @@ int main(int argc, char **argv) {
 
     // search
     uint32_t len_haystack = strnlen(haystack, 128);
-    uint32_t i = 0;
-    uint32_t j = 0;
+    i = 0;
+    j = 0;
     int32_t found_index = -1;
 
     while (i < len_haystack) {
         if (haystack[i] == needle[j]) {
             i += 1;
             j += 1;
+        } else if (j > 0) {
+            j = lps[j - 1];
         } else {
-            j = lps[j];
-            if (j == -1) {
-                i += 1;
-                j = 0;
-            }
+            i += 1;
         }
         if (j == len_needle) {
             found_index = i - len_needle;
